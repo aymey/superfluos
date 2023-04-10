@@ -2,8 +2,8 @@
 BITS 16
 start:
     KERNELLOCATION equ 0x1000
-
     BOOTDISK equ 0
+
     mov [BOOTDISK], dl
 
     call readKernel

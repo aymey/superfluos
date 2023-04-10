@@ -2,12 +2,17 @@ BITS 32
 
 section .text
     extern printk
+    extern kprintf
+    extern test
 
-    push dword 1
+    ; call test
 
-    string: dd "tes", 0
+    ; push dword 1
+    string: db "%", 0
     mov eax, string
     push eax
 
-    call printk
+    call kprintf
+
+
     jmp $
