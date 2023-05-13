@@ -1,10 +1,12 @@
 [ORG 0x7C00]
 BITS 16
-start:
-    KERNELLOCATION equ 0x1000
-    BOOTDISK equ 0
+global _start
 
-    mov [BOOTDISK], dl
+_start:
+    KERNEL_LOCATION equ 0x1000
+    BOOT_DISK equ 0
+
+    mov [BOOT_DISK], dl
 
     call readKernel
 
@@ -17,7 +19,7 @@ readKernel:
     mov bp, 0x8000
     mov sp, bp
 
-    mov bx, KERNELLOCATION
+    mov bx, KERNEL_LOCATION
     mov dh, 2
 
 
@@ -26,7 +28,7 @@ readKernel:
     mov ch, 0x00
     mov dh, 0x00
     mov cl, 0x02
-    mov dl, [BOOTDISK]
+    mov dl, [BOOT_DISK]
     int 0x13
 
     mov ah, 0x0
@@ -95,7 +97,7 @@ protectedMode:
     mov ebp, 0x90000
     mov esp, ebp
 
-    jmp KERNELLOCATION
+    jmp KERNEL_LOCATION
 
 times 510-($-$$) db 0
 dw 0xAA55
