@@ -1,16 +1,9 @@
 BITS 32
 
-section .text
-    ; extern printk
-    ; extern kprintf
-    extern test
+[extern main] // TODO: compiler underscore?
 
-    ; push dword 1
-    ; string: db "aabcaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaa_3", 0
-    ; mov eax, string
-    ; push eax
+; string: dd "T7aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa2"
 
-    ; call kprintf
-    call test
+call main
 
-    jmp $
+jmp $
