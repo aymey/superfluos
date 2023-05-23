@@ -6,13 +6,13 @@ _start:
     KERNEL_LOCATION equ 0x1000
     BOOT_DISK equ 0
 
-    mov [BOOT_DISK], dl
+    call read_kernel
 
-    call readKernel
+read_kernel:
+    mov ah, 0x0
+    mov al, 0x3
+    int 0x10
 
-    jmp $
-
-readKernel:
     xor ax, ax
     mov es, ax
     mov ds, ax
@@ -20,74 +20,63 @@ readKernel:
     mov sp, bp
 
     mov bx, KERNEL_LOCATION
-    mov dh, 2
-
 
     mov ah, 0x02
-    mov al, dh
+    mov al, 20
     mov ch, 0x00
     mov dh, 0x00
     mov cl, 0x02
-    mov dl, [BOOT_DISK]
     int 0x13
 
-    mov ah, 0x0
-    mov al, 0x3
-    int 0x10
-
-    jmp protectedModeSetup
-
-    jmp $
+    jmp protected_mode_setup
 
 
-protectedModeSetup:
-    CODESEG equ codeDescriptor - GDTStart
-    DATASEG equ dataDescriptor - GDTStart
+protected_mode_setup:
+    CODE_SEG equ code_descriptor - GDT_start
+    DATA_SEG equ data_descriptor - GDT_start
 
     cli
-    lgdt [GDTDescriptor]
+    lgdt [GDT_descriptor]
     mov eax, cr0
     or eax, 1
     mov cr0, eax
-    jmp CODESEG:protectedMode
-
-    jmp $
+    jmp CODE_SEG:protected_mode
 
 
-GDTStart:
-    nullDescriptor:
+GDT_start:
+    null_descriptor:
         dd 0x0
         dd 0x0
 
-    codeDescriptor:
-        dw 0xffff
+    code_descriptor:
+        dw 0xFFFF
         dw 0x0
         db 0x0
         db 0b10011010
         db 0b11001111
         db 0x0
 
-    dataDescriptor:
-        dw 0xffff
+    data_descriptor:
+        dw 0xFFFF
         dw 0x0
         db 0x0
         db 0b10010010
         db 0b11001111
         db 0x0
-GDTEnd:
+GDT_end:
 
-GDTDescriptor:
-    dw GDTEnd - GDTStart - 1
-    dd GDTStart
+GDT_descriptor:
+    dw GDT_end - GDT_start - 1
+    dd GDT_start
 
 BITS 32
-protectedMode:
+protected_mode:
     ; mov al, 'p'
     ; mov ah, 0xf2
     ; mov ah, 0b01111111
     ; mov ah, 0b00100110
     ; mov [0xb8000], ax
-    mov ax, DATASEG
+    mov ax, DATA_SEG
     mov ds, ax
     mov ss, ax
     mov es, ax
