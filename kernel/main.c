@@ -1,6 +1,7 @@
 #include "system.h"
 
 void main() {
+    gdt_install();
     // *(char *)0xB8000 = 'a';
     // *(char *)0xB8006 = 'a';
     // const char *string_example = "123";

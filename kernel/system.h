@@ -17,4 +17,8 @@ void putc(const unsigned char c);
 void puts(const unsigned char *text);
 void set_text_colour(const unsigned char forecolour, const unsigned char backcolour);
 
+/* GDT */
+void gdt_set_gate(int num, unsigned long base, unsigned long limit, unsigned char access, unsigned char gran);
+void gdt_install(void);
+
 #endif

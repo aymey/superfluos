@@ -5,7 +5,6 @@
 BITS 16
 
 KERNEL_LOCATION equ 0x1000
-BOOT_DISK equ 0
 
 read_kernel:
     mov ah, 0x0
@@ -40,7 +39,7 @@ protected_mode_setup:
     mov cr0, eax
     jmp CODE_SEG:protected_mode
 
-%include "bootloader/GDT.asm"
+%include "bootloader/gdt.asm"
 
 mbr_boot_sector_magic:
     times (MBR_SIZE-2)-($-$$) db 0
