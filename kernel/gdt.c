@@ -34,17 +34,17 @@ void gdt_set_gate(int num, unsigned long base, unsigned long limit, unsigned cha
 }
 
 void gdt_install(void) {
-    gp.limit = (sizeof(gdt_entry) * 3)-1;
+    gp.limit = (sizeof(gdt_entry) * 3) - 1;
     gp.base = &gdt;
 
     /* NULL descriptor */
     gdt_set_gate(0, 0, 0, 0, 0);
 
     /* CODE segment */
-    gdt_set_gate(1, 0, 0xFFFFFFFF, 0x9A, 0xCF);
+    gdt_set_gate(1, 0, 0xFFFF, 0x9A, 0xCF); // 0xFFFFFFFF or 0xFFFF ?
 
     /* DATA segment */
-    gdt_set_gate(2, 0, 0xFFFFFFFF, 0x92, 0xCF);
+    gdt_set_gate(2, 0, 0xFFFF, 0x92, 0xCF);
 
     gdt_flush();
 }
