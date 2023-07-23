@@ -17,7 +17,7 @@ typedef struct {
 } __attribute__((packed)) gdt_ptr;
 
 gdt_entry gdt[3];
-gdt_ptr gp;
+gdt_ptr gdtp;
 
 extern void gdt_flush(void);
 
@@ -34,8 +34,8 @@ void gdt_set_gate(int num, unsigned long base, unsigned long limit, unsigned cha
 }
 
 void gdt_install(void) {
-    gp.limit = (sizeof(gdt_entry) * 3) - 1;
-    gp.base = &gdt;
+    gdtp.limit = (sizeof(gdt_entry) * 3) - 1;
+    gdtp.base = &gdt;
 
     /* NULL descriptor */
     gdt_set_gate(0, 0, 0, 0, 0);

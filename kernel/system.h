@@ -18,7 +18,13 @@ void puts(const unsigned char *text);
 void set_text_colour(const unsigned char forecolour, const unsigned char backcolour);
 
 /* GDT */
+void gdt_flush(void);
 void gdt_set_gate(int num, unsigned long base, unsigned long limit, unsigned char access, unsigned char gran);
 void gdt_install(void);
 
-#endif
+/* IDT */
+void idt_load(void);
+void idt_set_gate(unsigned char num, unsigned long base, unsigned short sel, unsigned char flags);
+void idt_install(void);
+
+#endif // __SYSTEM_H_
