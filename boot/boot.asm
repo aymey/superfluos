@@ -1,5 +1,5 @@
 ; ^bootloader/ for make directory (..)
-%include "bootloader/magic.inc"
+%include "boot/magic.inc"
 
 [ORG MBR_OFFSET]
 BITS 16
@@ -39,7 +39,7 @@ protected_mode_setup:
     mov cr0, eax
     jmp CODE_SEG:protected_mode
 
-%include "bootloader/gdt.asm"
+%include "boot/gdt.asm"
 
 mbr_boot_sector_magic:
     times (MBR_SIZE-2)-($-$$) db 0

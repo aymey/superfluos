@@ -9,10 +9,10 @@ KERNEL_LOCATION = ./kernel
 BOOT_LOCATION = ./boot
 
 
-all: boot.bin kernel.bin
+all: boot.bin kernel.bin combine
 
 boot.bin: $(BOOT_LOCATION)/* # $(BOOT_LOCATION)/boot.asm $(BOOT_LOCATION)/gdt.asm $(BOOT_LOCATION)/magic.inc
-		$(ASM) $(BOOTLOADER_LOCATION)/boot.asm -f bin -o boot.bin
+		$(ASM) $(BOOT_LOCATION)/boot.asm -f bin -o boot.bin
 
 kernel.bin: $(KERNEL_LOCATION)/*
 		$(CC) $(CFLAGS) -g -c $(KERNEL_LOCATION)/main.c -o main.o # what std lib flags do i need? diff between -fno-builtin and -fnobuiltin-function? -ffreestanding "implies -fnobuiltin(-function)" - manual? include headers '-I'?
