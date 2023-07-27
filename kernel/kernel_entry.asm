@@ -2,15 +2,13 @@ BITS 32
 
 [extern main] ; TODO: compiler underscore?
 
-global idt_load
-[extern idtp]
 [extern idt_install]
+[extern idt_load]
+
+; TODO: should do gdt stuff here
 
 call idt_install
-
-idt_load:
-  lidt [idtp]
-  ; ret
+call idt_load
 
 call main
 
