@@ -1,4 +1,4 @@
-#include "system.h"
+#include <system.h>
 
 #define SCREEN_WIDTH 80
 #define SCREEN_HEIGHT 25

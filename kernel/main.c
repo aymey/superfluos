@@ -1,8 +1,8 @@
-#include "system.h"
+#include <system.h>
 
 void main() {
 
-  // *(char *)0xB8000 = 'a';
+  *(char *)0xB8000 = 'a';
   // *(char *)0xB8006 = 'a';
   // const char *string_example = "123";
   // unsigned char *temp;
