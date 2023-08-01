@@ -1,15 +1,14 @@
 BITS 32
 
-[extern main] ; TODO: compiler underscore?
-
-[extern idt_install]
-[extern idt_load]
-
 ; TODO: should do gdt stuff here
 
+[extern idt_install]
 call idt_install
-call idt_load
 
+[extern isr_install]
+call isr_install
+
+[extern main] ; TODO: compiler underscore?
 call main
 
 jmp $

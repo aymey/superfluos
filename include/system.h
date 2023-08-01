@@ -27,4 +27,15 @@ void idt_load(void);
 void idt_set_gate(unsigned char num, unsigned long base, unsigned short sel, unsigned char flags);
 void idt_install(void);
 
+/* ISR */
+void isr_install(void);
+// Stack after an ISR
+typedef struct {
+    unsigned int gs, fs, es, ds;
+    unsigned int edi, esi, ebp, esp, ebx, edx, ecx, eax; // pushed by 'pusha'
+    unsigned int int_no, err_code; // for 'push byte' and error codes
+    unsigned int eip, cs, eflags, useresp, ss; // automatically pushed by processor
+} regs;
+void fault_handler(regs *r);
+
 #endif // __SYSTEM_H_
