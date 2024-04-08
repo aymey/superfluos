@@ -1,10 +1,23 @@
-; ^bootloader/ for make directory (..)
+; ^bootl/ for make directory (..)
 %include "boot/magic.inc"
 
 [ORG MBR_OFFSET]
 BITS 16
 
 KERNEL_LOCATION equ 0x1000
+
+entry:
+    jmp 0x0000:.clear ; reload CS to 0 incase of 0x07C0:0x0000
+    .clear: ; zero all segment registers
+        xor ax, ax
+        mov ss, ax
+        mov ds, ax
+        mov es, ax
+        mov fs, ax
+        mov gs, ax
+
+        mov sp, entry
+
 
 read_kernel:
     mov ah, 0x0

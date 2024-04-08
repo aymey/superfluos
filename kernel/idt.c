@@ -6,7 +6,7 @@ typedef struct {
   unsigned short zero;
   unsigned char flags;
   unsigned short base_high;
-} __attribute((packed)) idt_entry;
+} __attribute__((packed)) idt_entry;
 
 typedef struct {
   unsigned short limit;
